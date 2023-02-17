@@ -1,8 +1,6 @@
 package ru.kata.spring.boot_security.demo.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,11 +9,13 @@ import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class UserServiceImp implements UserServiceInterface {
 
-     private final UserRepository userRepository;
+    private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     public UserServiceImp(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
@@ -23,7 +23,7 @@ public class UserServiceImp implements UserServiceInterface {
     }
 
     @Override
-   public List<User> allUsers() {
+    public List<User> allUsers() {
         return userRepository.findAll();
     }
 
@@ -50,7 +50,13 @@ public class UserServiceImp implements UserServiceInterface {
     @Transactional
     public void update(Long id, User user) {
         user.setId(id);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+    }
+
+    @Override
+    public boolean checkLogin(User user) {
+        return userRepository.findByUsername(user.getUsername()) != null;
     }
 
     @Override

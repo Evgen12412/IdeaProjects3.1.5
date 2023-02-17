@@ -11,6 +11,7 @@ import java.util.List;
 public class RoleServiceImp implements RoleServiceInterface {
 
     private final RoleRepository roleRepository;
+
     @Autowired
     public RoleServiceImp(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;

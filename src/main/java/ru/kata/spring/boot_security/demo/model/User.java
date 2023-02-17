@@ -19,34 +19,33 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "username")
-    private String username;
 
     @Column(name = "surname")
     private String surname;
-   @Column(name = "password")
+    @Column(name = "password")
     private String password;
-   @Column(name = "age")
-   private int age;
-   @Column(name = "email")
-   private String email;
+    @Column(name = "age")
+    private int age;
+    @Column(name = "email", unique = true)
+    private String username;
 
-     @ManyToMany(fetch = FetchType.EAGER)
-//    @ManyToMany
-//    @JoinTable(name = "users_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "roles_id"))
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
 
     public User(String username, String surname, String password, int age, String email, Set<Role> roles) {
-        this.username = username;
+
         this.surname = surname;
         this.password = password;
         this.age = age;
-        this.email = email;
+        this.username = username;
         this.roles = roles;
     }
 
@@ -92,13 +91,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Role> roles = getRoles();
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
-
-        return authorities;
+        return getRoles();
     }
 
     @Override
@@ -139,13 +132,6 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     @Override
     public boolean equals(Object o) {

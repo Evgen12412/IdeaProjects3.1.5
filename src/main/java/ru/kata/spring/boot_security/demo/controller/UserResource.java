@@ -8,14 +8,17 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.service.role.RoleServiceInterface;
 import ru.kata.spring.boot_security.demo.service.user.UserServiceImp;
+import ru.kata.spring.boot_security.demo.service.user.UserServiceInterface;
 
 import java.util.List;
 
+
+//для следующей задачи
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserResource {
 
-    private final UserServiceImp userService;
+    private final UserServiceInterface userService;
     private final RoleServiceInterface roleService;
 
     @Autowired
@@ -30,7 +33,6 @@ public class UserResource {
         List<Role> allRoles = roleService.allRoles();
         model.addAttribute("allRoles", allRoles);
         return userService.findUserById(userId);
-
     }
 
     @PostMapping("/{userId}")
