@@ -43,11 +43,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/user")
-    public String getUser(Model model) {
-        model.addAttribute("getUser", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        return "user";
-    }
 
     @PostMapping("/addNewUser")
     public String createUser(@ModelAttribute("user") User user) {
