@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.service.user;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import ru.kata.spring.boot_security.demo.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class UserServiceImp implements UserServiceInterface {
 
@@ -24,12 +26,14 @@ public class UserServiceImp implements UserServiceInterface {
 
     @Override
     public List<User> allUsers() {
+        log.info("All users");
         return userRepository.findAll();
     }
 
     @Override
     @Transactional
     public void saveUser(User user) {
+        log.info("Saving user {}", user);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
@@ -43,12 +47,14 @@ public class UserServiceImp implements UserServiceInterface {
     @Override
     @Transactional
     public void deleteUser(Long userId) {
+        log.info("Deleting user {}", userId);
         userRepository.deleteById(userId);
     }
 
     @Override
     @Transactional
     public void update(Long id, User user) {
+        log.info("Updating user {}", user);
         user.setId(id);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
