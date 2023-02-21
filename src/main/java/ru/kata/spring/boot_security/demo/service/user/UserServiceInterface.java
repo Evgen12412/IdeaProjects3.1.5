@@ -14,7 +14,7 @@ public interface UserServiceInterface {
 
     void deleteUser(Long userId);
 
-    void update(Long id, User user);
+//    void update(Long id, User user);
     boolean checkLogin(User user);
 
     Optional<User> findByUserName(String username);

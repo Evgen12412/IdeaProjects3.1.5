@@ -44,19 +44,20 @@ public class AdminController {
     }
 
 
-    @PostMapping("/addNewUser")
-    public String createUser(@ModelAttribute("user") User user) {
-        if (userService.checkLogin(user)) {
-            userService.saveUser(user);
-            return "redirect:/admin";
-        } else {
-            return "/Error";
-        }
-    }
+//    @PostMapping("/addNewUser")
+//    public String createUser(@ModelAttribute("user") User user) {
+//        if (userService.checkLogin(user)) {
+//            userService.saveUser(user);
+//            return "redirect:/admin";
+//        } else {
+//            return "/Error";
+//        }
+//    }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/admin";
     }
+
 }

@@ -51,14 +51,14 @@ public class UserServiceImp implements UserServiceInterface {
         userRepository.deleteById(userId);
     }
 
-    @Override
-    @Transactional
-    public void update(Long id, User user) {
-        log.info("Updating user {}", user);
-        user.setId(id);
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
+//    @Override
+//    @Transactional
+//    public void update(Long id, User user) {
+//        log.info("Updating user {}", user);
+//        user.setId(id);
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//        userRepository.save(user);
+//    }
 
     @Override
     public boolean checkLogin(User user) {

@@ -32,21 +32,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/assets/**", "/css/**", "/js/**", "/").permitAll()
-                //Доступ только для не зарегистрированных пользователей
-                .antMatchers("/", "/registration").not().fullyAuthenticated()
-                //Доступ только для пользователей с ролью Администратор
+                .antMatchers("/", "/api/**")
+                .permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user").hasRole("USER")
-                //Доступ разрешен всем
-                .antMatchers("/","/resources").permitAll()
-                //Все остальные страницы требуют аутентификации
+                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler)
-                .permitAll()
+                // аутентификация
+                .formLogin().loginPage("/login")
+                .loginProcessingUrl("/process_login")
+                .successHandler(successUserHandler).permitAll()
+                .failureUrl("/login?error")
                 .and()
-                .logout()
+                // разлогинивание
+                .logout().logoutSuccessUrl("/")
                 .permitAll();
     }
 

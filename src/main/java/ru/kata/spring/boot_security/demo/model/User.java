@@ -29,7 +29,7 @@ public class User implements UserDetails {
     @Column(name = "email", unique = true)
     private String username;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -144,5 +144,17 @@ public class User implements UserDetails {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", surname='" + surname + '\'' +
+                ", password='" + password + '\'' +
+                ", age=" + age +
+                ", username='" + username + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }
