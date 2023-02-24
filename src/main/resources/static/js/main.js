@@ -107,55 +107,6 @@ async function addNewUser(event) {
 
 }
 
-// const formNew = document.getElementById('formNewUser')
-// const name = document.getElementById('name')
-// const lastname = document.getElementById('lastName')
-// const age = document.getElementById('age')
-// const password = document.getElementById('password')
-// const roles = document.getElementById('userRole')
-// const btnNewUser = document.getElementById('btnNewUser')
-// let option = ''
-//
-//  btnNewUser.addEventListener('click', () => {
-//     console.log('btnNewUser click')
-//     name.value = ''
-//     lastname.value = ''
-//     age.value = ''
-//     password.value = ''
-//     roles.innerHTML = `
-//             <option>USER</option>
-//         <option>ADMIN</option>
-//         `
-//     option = 'userPage'
-// })
-//
-// formNew.addEventListener('submit', (e) => {
-//     e.preventDefault()
-//     let listRoles = roleArray(document.getElementById('userRole'))
-//     console.log(
-//         name.value, lastname.value, age.value, password.value, listRoles
-//     )
-//     fetch( url, {
-//         method: 'PUT',
-//         headers: {
-//             'Content-type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//             username: name.value,
-//             surname: lastname.value,
-//             age: age.value,
-//             password: password.value,
-//             roles: listRoles
-//         })
-//     })
-//         .then(formNew.reset())
-//         .then(res => res.json())
-//         .then(data => showUsers(data))
-//         .catch(error => console.log(error))
-//         .then(reloadShowUsers)
-//     $('.nav-tabs a[href="#nav-admin"]').tab('show')
-//
-// })
 
 // Edit modal
 const modalEdit = new bootstrap.Modal(document.getElementById('modalEdit'))
